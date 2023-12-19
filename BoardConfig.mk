@@ -4,9 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
 DEVICE_PATH := device/xiaomi/topaz
 KERNEL_PATH := $(DEVICE_PATH)-kernel
 
@@ -65,8 +62,19 @@ SOONG_CONFIG_ufsbsg_ufsframework := bsg
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := bengal
 
+# Build
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
+BUILD_BROKEN_CLANG_PROPERTY := true
+BUILD_BROKEN_CLANG_ASFLAGS := true
+BUILD_BROKEN_CLANG_CFLAGS := true
+BUILD_BROKEN_PYTHON_IS_PYTHON2 := true
+BUILD_BROKEN_USES_SOONG_PYTHON2_MODULES := true
+ALLOW_MISSING_DEPENDENCIES=true
+
 # Display
-TARGET_SCREEN_DENSITY := 420
+TARGET_SCREEN_DENSITY := 390
 
 # DTB/DTBO
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
@@ -106,7 +114,8 @@ BOARD_KERNEL_CMDLINE := \
 # Kernel prebuilt
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := $(KERNEL_PATH)/kernel-headers
+TARGET_KERNEL_SOURCE := kernel/msm-5.15
+TARGET_KERNEL_CONFIG := vendor/bengal_GKI.config
 TARGET_KERNEL_VERSION := 5.15
 
 TARGET_NO_KERNEL_OVERRIDE := true
@@ -241,7 +250,7 @@ SOONG_CONFIG_XIAOMI_VIBRATOR_USE_EFFECT_STREAM := true
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/configs/vintf/framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    vendor/aosp/config/device_framework_matrix.xml
 DEVICE_MANIFEST_FILE += \
     $(DEVICE_PATH)/configs/vintf/manifest.xml \
     $(DEVICE_PATH)/configs/vintf/network_manifest.xml
